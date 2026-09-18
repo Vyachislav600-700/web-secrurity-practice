@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Вход — Админ-панель</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="login-wrap">
+    <form id="login-form" class="login-card">
+      <h1>Вход в систему</h1>
+      <label>
+        Login
+        <input type="text" id="username" name="username" autocomplete="username" required maxlength="50">
+      </label>
+      <label>
+        Password
+        <input type="password" id="password" name="password" autocomplete="current-password" required maxlength="200">
+      </label>
+      <button type="submit">Войти</button>
+      <p id="error-msg" class="error"></p>
+    </form>
+  </div>
+  <script src="/js/login.js"></script>
+</body>
+</html>

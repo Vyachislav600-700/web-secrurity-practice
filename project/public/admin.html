@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Админ-панель</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div>Админ-панель интернет-магазина</div>
+    <div>
+      <span id="whoami"></span>
+      <button id="logout-btn">Выход</button>
+    </div>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab-btn active" data-tab="categories-tab">Категории</button>
+    <button class="tab-btn" data-tab="products-tab">Товары</button>
+  </nav>
+
+  <main>
+    <!-- ===== Категории ===== -->
+    <section id="categories-tab" class="tab-panel active">
+      <h2>Категории</h2>
+
+      <form id="category-form" class="inline-form" enctype="multipart/form-data">
+        <input type="hidden" id="category-id">
+        <input type="text" id="category-name" placeholder="Название категории" required maxlength="150">
+        <input type="file" id="category-image" accept="image/png, image/jpeg, image/webp">
+        <button type="submit">Сохранить</button>
+        <button type="button" id="category-cancel-edit" style="display:none;">Отмена</button>
+      </form>
+
+      <table>
+        <thead><tr><th>ID</th><th>Фото</th><th>Название</th><th></th></tr></thead>
+        <tbody id="categories-body"></tbody>
+      </table>
+    </section>
+
+    <!-- ===== Товары ===== -->
+    <section id="products-tab" class="tab-panel">
+      <h2>Товары</h2>
+
+      <form id="filter-form" class="inline-form">
+        <input type="text" id="filter-search" placeholder="Поиск по названию">
+        <select id="filter-category"><option value="">Все категории</option></select>
+        <input type="number" id="filter-price-from" placeholder="Цена от" min="0">
+        <input type="number" id="filter-price-to" placeholder="Цена до" min="0">
+        <button type="submit">Найти</button>
+        <button type="button" id="filter-reset">Сбросить</button>
+      </form>
+
+      <form id="product-form" class="inline-form" enctype="multipart/form-data">
+        <input type="hidden" id="product-id">
+        <input type="text" id="product-name" placeholder="Название товара" required maxlength="200">
+        <input type="text" id="product-description" placeholder="Описание" maxlength="5000">
+        <input type="number" id="product-price" placeholder="Цена" min="0.01" step="0.01" required>
+        <select id="product-category" required></select>
+        <input type="file" id="product-image" accept="image/png, image/jpeg, image/webp">
+        <button type="submit">Сохранить</button>
+        <button type="button" id="product-cancel-edit" style="display:none;">Отмена</button>
+      </form>
+
+      <table>
+        <thead><tr><th>ID</th><th>Фото</th><th>Название</th><th>Категория</th><th>Цена</th><th></th></tr></thead>
+        <tbody id="products-body"></tbody>
+      </table>
+    </section>
+  </main>
+
+  <script src="/js/admin.js"></script>
+</body>
+</html>
