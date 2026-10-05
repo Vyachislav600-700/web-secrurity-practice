@@ -6,6 +6,10 @@ const helmet = require('helmet');
 
 const { waf } = require('./middleware/waf');
 const authRoutes = require('./routes/auth');
+const registerRoutes = require('./routes/register');
+const publicRoutes = require('./routes/public');
+const cartRoutes = require('./routes/cart');
+const ordersRoutes = require('./routes/orders');
 const categoriesRoutes = require('./routes/categories');
 const productsRoutes = require('./routes/products');
 const { requireAuth } = require('./middleware/auth');
@@ -48,6 +52,10 @@ app.get('/api/csrf-token', (req, res) => {
 });
 
 app.use('/api', authRoutes);
+app.use('/api', registerRoutes);
+app.use('/api/public', publicRoutes);
+app.use('/api/cart', cartRoutes);
+app.use('/api/orders', ordersRoutes);
 app.use('/api/categories', categoriesRoutes);
 app.use('/api/products', productsRoutes);
 

@@ -46,6 +46,12 @@ function el(tag, text, attrs = {}) {
 async function init() {
   const meRes = await api('/api/me');
   const me = await meRes.json();
+
+    if (me.role !== 'admin') {
+    window.location.href = '/shop.html';
+    return;
+  }
+  
   csrfToken = me.csrfToken;
   document.getElementById('whoami').textContent = me.username;
 

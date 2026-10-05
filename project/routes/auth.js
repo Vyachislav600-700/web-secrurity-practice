@@ -22,8 +22,8 @@ router.post('/login', async (req, res) => {
 
   try {
     // Параметризованный запрос — защита от SQL Injection
-    const result = await pool.query(
-      'SELECT id, username, password_hash FROM users WHERE username = $1',
+       const result = await pool.query(
+      'SELECT id, username, password_hash, role FROM users WHERE username = $1',
       [username]
     );
 
@@ -45,8 +45,9 @@ router.post('/login', async (req, res) => {
       }
       req.session.userId = user.id;
       req.session.username = user.username;
+      req.session.role = user.role;
       const csrfToken = ensureCsrfToken(req);
-      return res.json({ id: user.id, username: user.username, csrfToken });
+      return res.json({ id: user.id, username: user.username, role: user.role, csrfToken });
     });
   } catch (err) {
     console.error(err);
@@ -68,7 +69,7 @@ router.get('/me', (req, res) => {
     return res.status(401).json({ error: 'Unauthorized' });
   }
   const csrfToken = ensureCsrfToken(req);
-  return res.json({ id: req.session.userId, username: req.session.username, csrfToken });
+  return res.json({ id: req.session.userId, username: req.session.username, role: req.session.role, csrfToken });
 });
 
 module.exports = router;

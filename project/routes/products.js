@@ -2,11 +2,13 @@ const express = require('express');
 const pool = require('../db/pool');
 const { requireAuth } = require('../middleware/auth');
 const { verifyCsrfToken } = require('../middleware/csrf');
+const { requireAdmin } = require('../middleware/role');
 const upload = require('../middleware/upload');
 
 const router = express.Router();
 
 router.use(requireAuth);
+router.use(requireAdmin);
 
 // GET /api/products?search=...&category=...&price_from=...&price_to=...
 router.get('/', async (req, res) => {

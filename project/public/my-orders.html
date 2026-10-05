@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Мои заказы — Интернет-магазин</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div>Интернет-магазин</div>
+    <div>
+      <span id="whoami"></span>
+      <a href="/shop.html" style="color:#fff; margin-right:14px;">Каталог</a>
+      <a href="/cart.html" style="color:#fff; margin-right:14px;">Корзина</a>
+      <button id="logout-btn">Выход</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="tab-panel active">
+      <h2>Мои заказы</h2>
+      <div id="orders-list"></div>
+      <p id="orders-empty" style="display:none;">У вас пока нет заказов.</p>
+    </section>
+  </main>
+
+  <script src="/js/my-orders.js"></script>
+</body>
+</html>

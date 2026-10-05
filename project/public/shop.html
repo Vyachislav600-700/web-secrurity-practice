@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Каталог — Интернет-магазин</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div>Интернет-магазин</div>
+    <div>
+      <span id="whoami"></span>
+      <a href="/cart.html" style="color:#fff; margin-right:14px;">Корзина</a>
+      <a href="/my-orders.html" style="color:#fff; margin-right:14px;">Мои заказы</a>
+      <button id="logout-btn">Выход</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="tab-panel active">
+      <h2>Каталог товаров</h2>
+
+      <form id="filter-form" class="inline-form">
+        <input type="text" id="filter-search" placeholder="Поиск по названию">
+        <select id="filter-category"><option value="">Все категории</option></select>
+        <input type="number" id="filter-price-from" placeholder="Цена от" min="0">
+        <input type="number" id="filter-price-to" placeholder="Цена до" min="0">
+        <button type="submit">Найти</button>
+        <button type="button" id="filter-reset">Сбросить</button>
+      </form>
+
+      <div id="products-grid" class="products-grid"></div>
+    </section>
+  </main>
+
+  <script src="/js/shop.js"></script>
+</body>
+</html>

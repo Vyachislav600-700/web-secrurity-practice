@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Корзина — Интернет-магазин</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div>Интернет-магазин</div>
+    <div>
+      <span id="whoami"></span>
+      <a href="/shop.html" style="color:#fff; margin-right:14px;">Каталог</a>
+      <a href="/my-orders.html" style="color:#fff; margin-right:14px;">Мои заказы</a>
+      <button id="logout-btn">Выход</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="tab-panel active">
+      <h2>Корзина</h2>
+
+      <table>
+        <thead><tr><th>Фото</th><th>Название</th><th>Цена</th><th>Кол-во</th><th>Сумма</th><th></th></tr></thead>
+        <tbody id="cart-body"></tbody>
+      </table>
+
+      <p id="cart-total" style="font-weight:600; font-size:18px; margin-top:16px;"></p>
+      <p id="cart-empty" style="display:none;">Корзина пуста.</p>
+
+      <button id="checkout-btn" type="button">Оформить заказ</button>
+      <p id="checkout-msg" class="error"></p>
+    </section>
+  </main>
+
+  <script src="/js/cart.js"></script>
+</body>
+</html>

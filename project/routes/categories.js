@@ -2,12 +2,16 @@ const express = require('express');
 const pool = require('../db/pool');
 const { requireAuth } = require('../middleware/auth');
 const { verifyCsrfToken } = require('../middleware/csrf');
+const { requireAdmin } = require('../middleware/role');
 const upload = require('../middleware/upload');
 
 const router = express.Router();
 
-// Весь раздел категорий доступен только авторизованному администратору
+// Просмотр категорий доступен любому авторизованному пользователю (и покупателю, и админу)
 router.use(requireAuth);
+
+// А вот изменять категории может только администратор
+router.use(requireAdmin);
 
 // GET /api/categories
 router.get('/', async (req, res) => {
