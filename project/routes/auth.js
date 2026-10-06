@@ -2,11 +2,12 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 const pool = require('../db/pool');
 const { ensureCsrfToken } = require('../middleware/csrf');
+const { loginLimiter } = require('../middleware/rateLimiter');
 
 const router = express.Router();
 
 // POST /api/login
-router.post('/login', async (req, res) => {
+router.post('/login', loginLimiter, async (req, res) => {
   const { username, password } = req.body || {};
 
   // Базовая валидация входных данных
