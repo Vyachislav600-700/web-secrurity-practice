@@ -63,6 +63,7 @@ async function init() {
 
   await loadCategories();
   await loadProducts();
+  await loadOrders();
 }
 
 function setupTabs() {
@@ -325,3 +326,75 @@ function setupFilterForm() {
 }
 
 init();
+// ---------- Заказы ----------
+
+async function loadOrders() {
+  const res = await api('/api/orders/all');
+  const orders = await res.json();
+  renderOrders(orders);
+}
+
+function renderOrders(orders) {
+  const list = document.getElementById('orders-list');
+  clearChildren(list);
+
+  const statusOptions = ['new', 'processing', 'done', 'cancelled'];
+
+  orders.forEach((order) => {
+    const card = el('div', null, { class: 'product-card', style: 'margin-bottom:12px; max-width:600px;' });
+
+    const date = new Date(order.created_at).toLocaleString('ru-RU');
+    card.appendChild(el('h3', `Заказ №${order.id} — ${order.username}`));
+        const statusColors = {
+      new: '#2f5eff',
+      processing: '#ffb020',
+      done: '#2ecc71',
+      cancelled: '#e04b4b',
+    };
+    const statusLabels = {
+      new: 'Новый',
+      processing: 'В обработке',
+      done: 'Выполнен',
+      cancelled: 'Отменён',
+    };
+    const badge = el('span', statusLabels[order.status] || order.status, {
+      style: `display:inline-block; align-self:flex-start; padding:3px 10px; border-radius:12px; font-size:12px; color:#fff; background:${statusColors[order.status] || '#999'}; margin-bottom:6px;`,
+    });
+    card.appendChild(badge);
+    card.appendChild(el('p', `Дата: ${date}`));
+
+    const itemsList = document.createElement('ul');
+    order.items.forEach((item) => {
+      itemsList.appendChild(
+        el('li', `${item.name} — ${item.quantity} × ${item.price_at_purchase} ₸`)
+      );
+    });
+    card.appendChild(itemsList);
+
+    card.appendChild(el('p', `Итого: ${order.total} ₸`, { style: 'font-weight:600;' }));
+
+    const select = el('select');
+    statusOptions.forEach((status) => {
+      const option = el('option', status, { value: status });
+      if (status === order.status) option.setAttribute('selected', 'selected');
+      select.appendChild(option);
+    });
+    select.addEventListener('change', () => updateOrderStatus(order.id, select.value));
+    card.appendChild(select);
+
+    list.appendChild(card);
+  });
+}
+
+async function updateOrderStatus(orderId, status) {
+  const res = await api(`/api/orders/${orderId}/status`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ status }),
+  });
+
+  if (!res.ok) {
+    const data = await res.json();
+    alert(data.error || 'Ошибка изменения статуса');
+  }
+}
